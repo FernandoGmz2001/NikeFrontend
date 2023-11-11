@@ -1,0 +1,51 @@
+.hero__container{
+    height: 90vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    background-repeat: no-repeat;
+    background-position: center;
+
+}
+
+.hero__left{
+    z-index: 2;
+}
+
+.hero__left h1{
+    font-weight: bold;
+    font-size: 6rem;
+    width: 15ch;
+}
+
+.shopNow{
+    background-color: black;
+    color: white;
+    font-size: 20px;
+}
+
+.hero__image{
+    margin: 0 auto;
+    position: absolute;
+    z-index: 3;
+}
+
+.hero__container img{
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+}
+
+.hero__bg{
+    z-index: 1;
+    clip-path: inset(0 140px 0 0);
+}
+
+.hero__sideLogo{
+    rotate: 270deg;
+    color: white;
+    font-size: 7rem;
+    letter-spacing: 30px;
+}

@@ -1,10 +1,9 @@
-import Navbar from "./components/Navbar";
+import Navbar from "./components/Navbar/Navbar";
 
 function App() {
   return (
     <>
       <Navbar />
-      <div>Hola esta es la pagina principal para mostrar cosas</div>
     </>
   );
 }

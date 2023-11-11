@@ -3,8 +3,10 @@
 }
 
 @font-face{
-  
-  font-family: ;
+  font-family: Myriad-pro-black-condensed;
+  src: url(../fonts/Myriad\ Pro\ Black\ Condensed.otf);
+  font-family: Myriad-pro-condensed;
+  src: url(../fonts/Myriad\ Pro\ Condensed.ttf);
 }
 
 
@@ -12,6 +14,19 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  font-family: Myriad-pro-condensed;
+}
+
+.wrapper{
+  padding: 0px 40px;
+}
+
+button{
+  border-radius: 5px;
+  outline: transparent;
+  padding: 10px 30px;
+  border: transparent;
+  cursor: pointer;
 }
 /* a {
   font-weight: 500;

@@ -1,0 +1,39 @@
+.phrase__container{
+    background: #000;
+    width: 100%;
+    transform: rotate(-4.297deg);
+}
+.phrase__line{
+    display: flex;
+    height: 70px;
+    transform: rotate(-4.297deg);
+    padding-right: 10px;
+    padding: 19.796px 60px 17.204px 196.525px;
+    justify-content: flex-end;
+    align-items: center;
+    flex-shrink: 0;
+    background-color: black;
+    gap: 10px;
+    overflow: hidden;
+    width: 200%;
+    position: relative;
+    left: -15px;
+    animation: marquee 10s linear infinite;
+}
+
+
+.phrase{
+    color: white;
+    width: 100px;
+    white-space: nowrap;
+    margin-right: 20px;
+}
+
+@keyframes marquee {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
