@@ -1,6 +1,9 @@
 .newArrivals{
     height: 100vh;
     margin-top: 150px;
+    display: flex;
+    flex-direction: column;
+    gap: 70px;
 }
 
 .newArrivals__title{

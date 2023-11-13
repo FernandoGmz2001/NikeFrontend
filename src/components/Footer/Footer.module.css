@@ -1,0 +1,8 @@
+.footer{
+    background: black;
+    color: white;
+    height: 40vh;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    padding: 40px;
+}

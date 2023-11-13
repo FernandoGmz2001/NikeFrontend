@@ -13,8 +13,6 @@ function Navbar({userColor, bagColor}) {
         className="logo"
       />
       <ul className={styles.navbar__menu}>
-        <li>MUJERES</li>
-        <li>NIÑOS</li>
         <li>HOMBRES</li>
       </ul>
       <div className={styles.navbar__userActions}>

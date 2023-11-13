@@ -1,18 +1,15 @@
-.tenisCard{
-    border: 1px solid black;
-    width: 200px;
-    height: 350px;
-    padding: 20px;
-    border-radius: 15px;
+.tenisCard__content{
+    display: grid;
+    font-weight: bold;
+    grid-template-columns: repeat(2,1fr);
+   
 }
 
-.tenisCard__header{
+.tenisCard__right{
     display: flex;
-    flex-direction: column;
+    justify-content: end;
 }
 
 .tenisCard__image{
-    position: relative;
-    left: -35px;
-    top: -30px;
+  
 }
