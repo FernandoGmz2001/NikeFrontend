@@ -8,7 +8,7 @@ function Featured() {
       <div className={styles.featured__content}>
         <h1>CORRER DEBE DE SENTIRSE BIEN</h1>
         <p>Todos deberian saber que se siente correr con el par correcto</p>
-        <button className={styles.featured__tenis}>Encuentra tu zapato</button>
+        <button className={styles.featured__tenis}>Encuentra tu tenis</button>
       </div>
     </div>
   );

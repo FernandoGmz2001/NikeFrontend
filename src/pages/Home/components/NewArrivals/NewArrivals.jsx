@@ -8,9 +8,9 @@ function NewArrivals() {
         <h3>Lo mejor de airmax</h3>
       </div>
       <div className={styles.newArrivals__grid}>
-        <TenisCard cardImage="/public/images/homePage/nike air max pulse.png" cardTitle="Nike Air Max Pulse" cardPrice="$12,999"/>
-        <TenisCard cardImage="/public/images/homePage/nike air max 97 SE.png" cardTitle="Nike Air Max 97 SE" cardPrice="$11,999"/>
-        <TenisCard cardImage="/public/images/homePage/nike air max SC.png" cardTitle="Nike Air Max SC" cardPrice="$15,999"/>
+        <TenisCard cardImage="/images/homePage/nike air max pulse.png" cardTitle="Nike Air Max Pulse" cardPrice="$12,999"/>
+        <TenisCard cardImage="/images/homePage/nike air max 97 SE.png" cardTitle="Nike Air Max 97 SE" cardPrice="$11,999"/>
+        <TenisCard cardImage="/images/homePage/nike air max SC.png" cardTitle="Nike Air Max SC" cardPrice="$15,999"/>
       </div>
     </div>
   );
