@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 function Navbar({ userColor, bagColor }) {
   return (
     <nav className={styles.navbar}>
-      <Link to='/home'>
+      <Link to="/home">
         <img
           src="https://1000marcas.net/wp-content/uploads/2019/11/Logo-Nike-1.png"
           width={70}
@@ -20,7 +20,9 @@ function Navbar({ userColor, bagColor }) {
       </ul>
       <div className={styles.navbar__userActions}>
         <div className="user__avatar">
-          <AiOutlineUser size={"20px"} color={userColor} />
+          <Link to='/login'>
+            <AiOutlineUser size={"20px"} color={userColor} />
+          </Link>
         </div>
         <div className="user__bag">
           <BsHandbag size={"20px"} color={bagColor} />
