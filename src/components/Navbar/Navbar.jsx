@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 function Navbar({ userColor, bagColor }) {
   return (
     <nav className={styles.navbar}>
-      <Link to="/home">
+      <Link to="/">
         <img
           src="https://1000marcas.net/wp-content/uploads/2019/11/Logo-Nike-1.png"
           width={70}
