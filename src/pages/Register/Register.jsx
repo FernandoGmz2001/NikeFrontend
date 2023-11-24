@@ -1,19 +1,18 @@
 import LoginRegister from '../../components/LoginRegister/LoginRegister'
 import { useState } from "react";
 import { Input } from "@nextui-org/react";
-import styles from "./Login.module.css";
+import styles from "./Register.module.css";
 
-function Login() {
+function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch('http://127.0.0.1:5000/login',{
+    fetch('http://127.0.0.1:5000/users',{
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         'email': email,
@@ -25,7 +24,7 @@ function Login() {
   };
 
   return (
-    <LoginRegister bottom_url={'No tienes cuenta?'} toLink={'Regístrate aquí'} link={'/register'}>
+    <LoginRegister bottom_url={'Ya tienes cuenta?'} toLink={'Inicia sesion'} link={'/login'}>
       <form onSubmit={handleSubmit} className={styles.form}>
         <Input
           size="sm"
@@ -50,4 +49,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;
