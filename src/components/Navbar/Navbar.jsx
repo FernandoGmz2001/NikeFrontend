@@ -4,14 +4,10 @@ import propTypes from "prop-types";
 import styles from "./Navbar.module.css";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@nextui-org/react";
-import { useContext } from "react"; 
-import { AuthContext } from "../../context/AuthContext";
-import { UserContext } from "../../context/UsernameContext";
 
 function Navbar({ userColor, bagColor }) {
   const location = useLocation();
-  const { isLoggedIn } = useContext(AuthContext);
-  const { username } = useContext(UserContext);
+  const username = localStorage.getItem("username");
 
   return (
     <nav className={styles.navbar}>
@@ -29,13 +25,12 @@ function Navbar({ userColor, bagColor }) {
       </ul>
       <div className={styles.navbar__userActions}>
         <div className="user__avatar">
-          {location.pathname != "/login" && isLoggedIn  ? (
+          {location.pathname != "/login" && username == ''   ? (
             <Link to="/login">
               <Button>Login</Button>
             </Link>
           ) : (
             <Link to="/profile">
-              <p>{username}</p>
               <AiOutlineUser size={"20px"} color={userColor} />
             </Link>
           )}

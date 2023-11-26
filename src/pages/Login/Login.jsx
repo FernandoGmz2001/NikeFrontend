@@ -1,16 +1,15 @@
-import React, { useContext, useState } from "react";
+import React, {  useState } from "react";
 import { Navigate } from "react-router-dom";
-import { AuthContext } from "../../context/AuthContext";
 import LoginRegister from "../../components/LoginRegister/LoginRegister";
 import styles from '../../components/LoginRegister/LoginRegister.module.css'
 import { Input } from "@nextui-org/react";
 import { ToastContainer,toast } from "react-toastify";
+import { UserContext } from "../../context/UsernameContext";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [redirect, setRedirect] = useState(false);
-  const { login } = useContext(AuthContext);
 
   const errorLogin = () =>
     toast("Usuario o contraseña incorrectas", { type: "error" });
@@ -31,12 +30,14 @@ function Login() {
       });
       const data = await response.json();
       if (data.status === 200) {
-        console.log(data);
-        localStorage.setItem("token", data.token);
-        login(); // Establecer el estado de inicio de sesión en el contexto
+        localStorage.setItem("username", data.email);
         setRedirect(true);
+        if(data.userId == 3){
+          localStorage.setItem("token", data.token);
+        }
         return;
       }
+
       errorLogin();
     } catch (err) {
       console.error("Error de inicio de sesión:", err);
@@ -45,7 +46,7 @@ function Login() {
   };
 
   if (redirect) {
-    return <Navigate to="/dashboard" />;
+    return <Navigate to="/" />;
   }
 
   return (

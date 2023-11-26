@@ -1,6 +1,7 @@
 import { CiSearch } from "react-icons/ci";
 import { MdAddToPhotos } from "react-icons/md";
 import { Input } from "@nextui-org/react";
+import { useState } from "react";
 import styles from "./Toolbar.module.css";
 import {
   Modal,
@@ -14,6 +15,42 @@ import {
 
 function Toolbar() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
+  const [formData, setFormData] = useState({
+    productDescription: "",
+    productImage: "",
+    productName: "",
+    productPrice: "",
+    productGender: "Hombre"
+  });
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
+
+  async function handleConfirm() {
+    try {
+      await fetch(
+        `http://127.0.0.1:5000/products`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+      console.log("Se ha enviado exitosamente");
+      onOpenChange();
+    } catch (err) {
+      throw new Error(err);
+    }
+  }
+
   return (
     <div className={styles.toolbar}>
       <div className={styles.toolbar__search}>
@@ -33,21 +70,42 @@ function Toolbar() {
               </ModalHeader>
               <ModalBody>
                 <form action="" className={styles.product__form}>
-                  <Input size="sm" label="Nombre del producto" />
                   <Input
-                    size="sm"
-                    type="password"
-                    label="Password"
-                    placeholder="Enter your password"
+                    label="Descripción del producto"
+                    name="productDescription"
+                    placeholder="Ingrese la descripción del producto"
+                    value={formData.productDescription}
+                    onChange={handleInputChange}
+                  />
+                  <Input
+                    label="Imagen del producto"
+                    name="productImage"
+                    placeholder="Ingrese la URL de la imagen del producto"
+                    value={formData.productImage}
+                    onChange={handleInputChange}
+                  />
+                  <Input
+                    label="Nombre del producto"
+                    name="productName"
+                    placeholder="Ingrese el nombre del producto"
+                    value={formData.productName}
+                    onChange={handleInputChange}
+                  />
+                  <Input
+                    label="Precio del producto"
+                    name="productPrice"
+                    placeholder="Ingrese el precio del producto"
+                    value={formData.productPrice}
+                    onChange={handleInputChange}
                   />
                 </form>
               </ModalBody>
               <ModalFooter>
-                <Button color="danger" variant="light" onPress={onClose}>
-                  Close
+                <Button color="danger"  onPress={onClose}>
+                  Cerrar
                 </Button>
-                <Button color="primary" onPress={onClose}>
-                  Action
+                <Button color="primary" onPress={handleConfirm}>
+                  Crear
                 </Button>
               </ModalFooter>
             </>
