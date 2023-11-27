@@ -2,6 +2,7 @@ import styles from "./Products.module.css";
 import { useEffect, useState, useMemo } from "react";
 import { Input } from "@nextui-org/react";
 import { MdDeleteOutline } from "react-icons/md";
+import { ToastContainer,toast } from "react-toastify";
 import {
   Table,
   TableHeader,
@@ -25,6 +26,8 @@ function Products() {
   const [products, setProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState({});
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
+
   const {
     isOpen: isOpenModal2,
     onOpen: onOpenModal2,
@@ -82,6 +85,7 @@ function Products() {
         }
       );
       console.log("Se ha enviado exitosamente");
+      toast("Producto editado correctamente", { type: "success" });
       getProducts()
       onOpenChange();
     } catch (err) {
@@ -99,6 +103,7 @@ function Products() {
         }
       );
       console.log("Se ha enviado exitosamente");
+      toast("Producto eliminado correctamente", { type: "success" });
       getProducts()
       onCloseModal2();
     } catch (err) {
@@ -204,10 +209,11 @@ function Products() {
             <Button color="danger" mr={3} onClick={onCloseModal2}>
               Cerrar
             </Button>
-            <Button color="primary"  onPress={handleConfirmDelete}>Guardar</Button>
+            <Button color="primary"  onPress={handleConfirmDelete}>Eliminar</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
+      <ToastContainer />
     </div>
   );
 }

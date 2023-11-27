@@ -6,6 +6,7 @@ import Navbar from "../../components/Navbar/Navbar";
 function UserPage() {
   const [redirect, setRedirect] = useState(false);
   const username = localStorage.getItem("username");
+  const token = localStorage.getItem("token");
 
   function closeSession() {
     localStorage.removeItem("token");
@@ -23,9 +24,16 @@ function UserPage() {
       <h1>UserPage</h1>
       <h2>{username}</h2>
       <Button onClick={closeSession}>Close session</Button>
-      <Link to={"/dashboard"}>
+      {
+        token && (
+          <Link to={"/dashboard"}>
+            <Button>Dashboard</Button>
+          </Link>
+        )
+      }
+      {/* <Link to={"/dashboard"}>
         <Button>Dashboard</Button>
-      </Link>
+      </Link> */}
     </div>
   );
 }

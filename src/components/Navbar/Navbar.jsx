@@ -21,11 +21,13 @@ function Navbar({ userColor, bagColor }) {
         />
       </Link>
       <ul className={styles.navbar__menu}>
-        <li>HOMBRES</li>
+        <Link to="/products">
+          <li>HOMBRES</li>
+        </Link>
       </ul>
       <div className={styles.navbar__userActions}>
         <div className="user__avatar">
-          {location.pathname != "/login" && username == ''   ? (
+          {location.pathname != "/login" && username == "" ? (
             <Link to="/login">
               <Button>Login</Button>
             </Link>

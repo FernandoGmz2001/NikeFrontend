@@ -2,8 +2,10 @@ import { CiSearch } from "react-icons/ci";
 import { MdAddToPhotos } from "react-icons/md";
 import { Input } from "@nextui-org/react";
 import { useState } from "react";
+import { ToastContainer,toast } from "react-toastify";
+import { FaRegFileExcel } from "react-icons/fa";
 import styles from "./Toolbar.module.css";
-import {
+import { 
   Modal,
   ModalContent,
   ModalHeader,
@@ -45,9 +47,22 @@ function Toolbar() {
         }
       );
       console.log("Se ha enviado exitosamente");
+      toast("Producto creado correctamente", { type: "success" });
       onOpenChange();
     } catch (err) {
       throw new Error(err);
+    }
+  }
+
+  async function generateFile(){
+    try {
+      const response = await fetch('http://127.0.0.1:5000/products/export',{
+        method: "GET",
+      })
+      const data = await response.json()
+      console.log(data);
+    } catch (error) {
+      throw new Error(error)
     }
   }
 
@@ -59,7 +74,10 @@ function Toolbar() {
           labelPlacement="outside"
           startContent={<CiSearch />}
         />
-        <MdAddToPhotos onClick={onOpen} className="cursor-pointer w-[40px]" />
+        <div className="flex gap-2">
+          <MdAddToPhotos onClick={onOpen} className="cursor-pointer w-[40px]" />
+          <FaRegFileExcel onClick={generateFile} className="cursor-pointer w-[40px]"/>
+        </div>
       </div>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>
@@ -112,6 +130,7 @@ function Toolbar() {
           )}
         </ModalContent>
       </Modal>
+      <ToastContainer />
     </div>
   );
 }
