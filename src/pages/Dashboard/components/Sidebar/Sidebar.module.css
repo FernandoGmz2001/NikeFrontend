@@ -8,7 +8,8 @@
     height: 100%;
 }
 
-.sidebar__header{
+.menu__item{
+    cursor: pointer;
 }
 
 .sidebar__content{

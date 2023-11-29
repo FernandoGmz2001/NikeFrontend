@@ -9,18 +9,20 @@ import "./Home.css";
 function Home() {
   return (
     <div className="home">
-      <header className="wrapper header">
+      <header className="header">
         <Navbar bagColor={"white"} userColor={"white"} />
-        <Hero />
+        <div className="wrapper">
+          <Hero />
+        </div>
       </header>
       <JustDoIt />
       <div className="wrapper">
         <NewArrivals />
       </div>
       <div className="wrapper">
-        <Featured/>
+        <Featured />
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 }

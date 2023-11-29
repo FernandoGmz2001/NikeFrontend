@@ -47,7 +47,6 @@ function Toolbar() {
         }
       );
       console.log("Se ha enviado exitosamente");
-      toast("Producto creado correctamente", { type: "success" });
       onOpenChange();
     } catch (err) {
       throw new Error(err);
@@ -60,7 +59,7 @@ function Toolbar() {
         method: "GET",
       })
       const data = await response.json()
-      console.log(data);
+      // toast("Excel generado correctamente", { type: "success" });
     } catch (error) {
       throw new Error(error)
     }

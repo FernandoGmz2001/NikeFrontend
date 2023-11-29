@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom'
 import styles from "./Sidebar.module.css";
-function Sidebar() {
+function Sidebar({ onItemClick }) {
+  const handleClick = (event) => {
+    onItemClick(event.target.innerText);
+  };
   return (
     <div className={styles.sidebar}>
       <header className={styles.sidebar__header}>
@@ -15,7 +18,8 @@ function Sidebar() {
       </header>
       <section className={styles.sidebar__content}>
         <ul className={styles.sidebar__menu}>
-          <li className={styles.menu__item}>Productos</li>
+          <li className={styles.menu__item} onClick={handleClick}>Productos</li>
+          <li className={styles.menu__item} onClick={handleClick}>Ordenes</li>
         </ul>
       </section>
     </div>

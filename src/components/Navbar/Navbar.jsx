@@ -3,11 +3,11 @@ import { BsHandbag } from "react-icons/bs";
 import propTypes from "prop-types";
 import styles from "./Navbar.module.css";
 import { Link, useLocation } from "react-router-dom";
-import { Button } from "@nextui-org/react";
+import { Button, User } from "@nextui-org/react";
 
 function Navbar({ userColor, bagColor }) {
   const location = useLocation();
-  const username = localStorage.getItem("username");
+  const userData = JSON.parse(localStorage.getItem("userData"));
 
   return (
     <nav className={styles.navbar}>
@@ -27,18 +27,27 @@ function Navbar({ userColor, bagColor }) {
       </ul>
       <div className={styles.navbar__userActions}>
         <div className="user__avatar">
-          {location.pathname != "/login" && username == "" ? (
+          {location.pathname != "/login" && userData.userUsername == "" ? (
             <Link to="/login">
               <Button>Login</Button>
             </Link>
           ) : (
             <Link to="/profile">
-              <AiOutlineUser size={"20px"} color={userColor} />
+              {
+                userData?.userUsername == undefined ? (
+                  null
+                ) : (
+                  <User
+                    name={userData.userUsername}
+                    description={userData.userEmail}
+                    avatarProps={{
+                      src: "https://i.pravatar.cc/150?u=a04258114e29026702d",
+                    }}
+                  />
+                )
+              }
             </Link>
           )}
-        </div>
-        <div className="user__bag">
-          <BsHandbag size={"20px"} color={bagColor} />
         </div>
       </div>
     </nav>

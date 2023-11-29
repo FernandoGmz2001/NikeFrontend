@@ -18,8 +18,8 @@ function App() {
   const token = localStorage.getItem("token");
 
   useEffect(() => {
-    const username = localStorage.getItem("username");
-    if (username) {
+    const userData = JSON.parse(localStorage.getItem("userData"));
+    if (userData) {
       setAuthenticated(true);
     } else {
       setAuthenticated(false);

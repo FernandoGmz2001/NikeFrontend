@@ -5,9 +5,7 @@ import styles from "./LoginRegister.module.css";
 function Login({ bottom_url, children,link,toLink }) {
   return (
     <div className={styles.login}>
-      <div className="wrapper">
         <Navbar />
-      </div>
       <div className={styles.login__form}>
         <div className={styles.login__header}>
           <img

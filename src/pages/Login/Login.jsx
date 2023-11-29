@@ -4,12 +4,12 @@ import LoginRegister from "../../components/LoginRegister/LoginRegister";
 import styles from '../../components/LoginRegister/LoginRegister.module.css'
 import { Input } from "@nextui-org/react";
 import { ToastContainer,toast } from "react-toastify";
-import { UserContext } from "../../context/UsernameContext";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [redirect, setRedirect] = useState(false);
+
 
   const errorLogin = () =>
     toast("Usuario o contraseña incorrectas", { type: "error" });
@@ -30,9 +30,13 @@ function Login() {
       });
       const data = await response.json();
       if (data.status === 200) {
-        localStorage.setItem("username", data.email);
+        localStorage.setItem("userData", JSON.stringify({
+          userEmail: data.email,
+          userId: data.userId,
+          userUsername: data.username,
+        }));
         setRedirect(true);
-        if(data.userId == 3){
+        if(data.email == 'fer@admin.mx'){
           localStorage.setItem("token", data.token);
         }
         return;

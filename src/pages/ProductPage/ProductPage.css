@@ -56,3 +56,33 @@
     width: 400px;
     height: 400px;
 }
+
+.product__actions{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+.btnCounter{
+    padding: 10px;
+    width: 40px;
+    height: 40px;
+    background-color: lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dialog__product{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.dialog__product h2{
+    font-weight: bold;
+}
+
+span{
+    color: black;
+}

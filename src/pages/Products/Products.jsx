@@ -26,9 +26,7 @@ function Products() {
 
   return (
     <>
-      <div className="wrapper">
         <Navbar />
-      </div>
       <div className="wrapper">
         <div className={styles.products__grid}>
           {
