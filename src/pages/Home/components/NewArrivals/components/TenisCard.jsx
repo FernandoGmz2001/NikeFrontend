@@ -17,7 +17,7 @@ function TenisCard({ cardTitle, cardPrice, cardImage }) {
           <p className={style.tenisCard__category}>Men</p>
         </div>
         <div className={style.tenisCard__right}>
-          <p>{cardPrice}</p>
+          <p>$ {cardPrice}</p>
         </div>
       </div>
     </div>

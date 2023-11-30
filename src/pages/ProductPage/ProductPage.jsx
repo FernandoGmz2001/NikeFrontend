@@ -12,6 +12,7 @@ import {
   Button,
   useDisclosure,
 } from "@nextui-org/react";
+import Footer from "../../components/Footer/Footer";
 
 function ProductPage() {
   const { id } = useParams();
@@ -73,7 +74,7 @@ function ProductPage() {
       <main className="product__main">
         <div className="product__information">
           <picture className="productImage__container">
-            <img src={product.productImage} width={400} height={400} alt="" />
+            <img src={product.productImage} width={500} height={500} alt="" />
           </picture>
           <div className="product__details">
             <h1>{product.productName}</h1>
@@ -104,7 +105,7 @@ function ProductPage() {
                   <div>
                     <h2>{product.productName}</h2>
                     <p>Cantidad : <span>{counter}</span></p>
-                    <p>Precio : ${product.productPrice * counter}</p>
+                    <p>Precio : $ {product.productPrice * counter}</p>
                   </div>
                 </div>
               </ModalBody>
@@ -121,6 +122,7 @@ function ProductPage() {
         </ModalContent>
       </Modal>
       <ToastContainer />
+      <Footer/>
     </div>
   );
 }

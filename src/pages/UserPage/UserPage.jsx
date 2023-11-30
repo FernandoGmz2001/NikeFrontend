@@ -96,11 +96,16 @@ function UserPage() {
         <div className={styles.profile__card}>
           <header></header>
           <div className={styles.avatar__container}>
-            <picture>
+            <picture className={styles.avatar__picture}>
               <img
                 src="https://i.pravatar.cc/150?u=a04258114e29026702d"
                 alt="picture"
+                className={styles.avatar__image}
               />
+              <div className={styles.change__picture}>
+                <button className={styles.btnChangePicture}>Cambiar foto</button>
+              </div>
+
             </picture>
             <div className={styles.avatar__text}>
               <h1>Settings</h1>
@@ -150,9 +155,9 @@ function UserPage() {
                   onChange={(e) => setUsername(e.target.value)}
                 />
               </div>
-              <button className={styles.btnUpdate} onClick={handleUpdate}>
+              <Button color="primary" onSubmit={handleUpdate}>
                 Update
-              </button>
+              </Button>
             </form>
           </div>
         </div>

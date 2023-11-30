@@ -5,3 +5,16 @@
 .tenis__price{
     font-weight: bold;
 }
+.tenis__name{
+    font-weight: bold;
+    color: black;
+}
+
+.tenis__status{
+    color: #9E3500;
+}
+
+.tenis__gender{
+    color: #757575;
+    margin-bottom: 10px;
+}
