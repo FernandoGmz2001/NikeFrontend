@@ -1,5 +1,6 @@
 .tenis__card{
     font-size: 18px;
+    cursor: pointer ;
 }
 .tenis__price{
     font-weight: bold;

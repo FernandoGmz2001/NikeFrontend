@@ -21,8 +21,11 @@ function Navbar({ userColor, bagColor }) {
         />
       </Link>
       <ul className={styles.navbar__menu}>
+      <Link to="/">
+          <li>HOME</li>
+        </Link>
         <Link to="/products">
-          <li>HOMBRES</li>
+          <li>MEN</li>
         </Link>
       </ul>
       <div className={styles.navbar__userActions}>

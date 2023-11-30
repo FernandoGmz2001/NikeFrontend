@@ -6,3 +6,8 @@
     grid-template-columns: repeat(3,1fr);
     padding: 40px;
 }
+
+.footer__socials{
+    display: flex;
+    gap:15px;
+    }

@@ -1,6 +1,7 @@
 .products__grid{
     display: grid;
     grid-template-columns: repeat(3,1fr);
-    margin-top: 40px;
+    padding: 40px 0px;
+    gap: 25px;
     justify-items: center;
 }

@@ -23,7 +23,7 @@ function Toolbar() {
     productImage: "",
     productName: "",
     productPrice: "",
-    productGender: "Hombre"
+    productGender: "Men"
   });
 
   const handleInputChange = (event) => {

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Route, Routes, useNavigate,Navigate  } from "react-router-dom";
 import Navbar from "../../components/Navbar/Navbar";
+import Footer from "../../components/Footer/Footer";
 import styles from "./Products.module.css";
 import TenisCard from "./components/TenisCard";
 function Products() {
@@ -25,7 +26,7 @@ function Products() {
 
 
   return (
-    <>
+    <div>
         <Navbar />
       <div className="wrapper">
         <div className={styles.products__grid}>
@@ -38,7 +39,8 @@ function Products() {
           }
         </div>
       </div>
-    </>
+      <Footer/>
+    </div>
   );
 }
 

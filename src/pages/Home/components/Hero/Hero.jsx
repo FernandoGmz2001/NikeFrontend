@@ -5,8 +5,8 @@ function Hero() {
     <div className={styles.hero__container}>
       <div className={styles.hero__left}>
         <h1>NIKE DUNK LOW RETRO</h1>
-        <Link to="/products">
-          <button className={styles.shopNow}>Comprar</button>
+        <Link to="/product/185">
+          <button className={styles.shopNow}>Buy</button>
         </Link>
       </div>
       <img

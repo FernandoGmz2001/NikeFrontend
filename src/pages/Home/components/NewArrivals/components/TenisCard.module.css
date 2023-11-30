@@ -1,8 +1,20 @@
+.tenisCard{
+    cursor: pointer;
+}
 .tenisCard__content{
+    margin-top: 20px;
     display: grid;
     font-weight: bold;
     grid-template-columns: repeat(2,1fr);
-   
+}
+
+.tenisCard__title{
+    font-weight: 500;
+}
+
+.tenisCard__category{
+    font-weight: 400;
+    color: #757575;
 }
 
 .tenisCard__right{

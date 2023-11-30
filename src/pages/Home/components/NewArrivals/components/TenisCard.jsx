@@ -7,12 +7,14 @@ function TenisCard({ cardTitle, cardPrice, cardImage }) {
       <img
         src={cardImage}
         className={style.tenisCard__image}
-        width={300}
+        width={350}
+        height={350}
         alt=""
       />
       <div className={style.tenisCard__content}>
         <div className={style.tenisCard__left}>
-          <p>{cardTitle}</p>
+          <p className={style.tenisCard__title}>{cardTitle}</p>
+          <p className={style.tenisCard__category}>Men</p>
         </div>
         <div className={style.tenisCard__right}>
           <p>{cardPrice}</p>
@@ -24,7 +26,7 @@ function TenisCard({ cardTitle, cardPrice, cardImage }) {
 
 TenisCard.propTypes = {
   cardTitle: propTypes.string,
-  cardPrice: propTypes.string,
+  cardPrice: propTypes.number,
   cardImage: propTypes.string,
 };
 export default TenisCard;

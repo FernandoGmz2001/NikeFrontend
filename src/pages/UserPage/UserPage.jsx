@@ -1,9 +1,16 @@
 import { Link, Navigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@nextui-org/react";
+import { Input } from "@nextui-org/react";
 import Navbar from "../../components/Navbar/Navbar";
+import { ToastContainer,toast } from "react-toastify";
+import styles from "./UserPage.module.css";
 
 function UserPage() {
+  const [userInformation, setUserInformation] = useState({});
+  const [email, setEmail] = useState(userInformation.email);
+  const [password, setPassword] = useState(userInformation.password);
+  const [username, setUsername] = useState(userInformation.username);
   const [redirect, setRedirect] = useState(false);
   const userData = JSON.parse(localStorage.getItem("userData"));
   const token = localStorage.getItem("token");
@@ -14,6 +21,70 @@ function UserPage() {
     setRedirect(true);
   }
 
+  async function getActualUser() {
+    console.log(userData.userId);
+    const response = await fetch(
+      `http://localhost:5000/users/${userData.userId}`,
+      {
+        method: "GET",
+      }
+    );
+    const data = await response.json();
+
+    console.log(data[0].user.username);
+
+    setUserInformation(data[0].user);
+    setEmail(data[0].user.email);
+    setPassword(data[0].user.password);
+    setUsername(data[0].user.username);
+  }
+
+  useEffect(() => {
+    getActualUser();
+  }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("http://127.0.0.1:5000/", {
+        method: "POST",
+      });
+    } catch (err) {
+      console.error("Error de inicio de sesión:", err);
+    }
+  };
+
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(
+        `http://localhost:5000/users/${userData.userId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: email,
+            password: password,
+            username: username,
+          }),
+        }
+      );
+      const data = await response.json();
+      toast("Datos actualizados correctamente", { type: "success" });
+      console.log(data);
+      localStorage.setItem("userData", JSON.stringify({
+        userEmail: email,
+        userUsername: username,
+        userId: userData.userId,
+      }));
+      getActualUser();
+    } catch (err) {
+      toast("Error al actualizar los datos", { type: "error" });
+    }
+  };
+
   if (redirect) {
     return <Navigate to="/login" />;
   }
@@ -22,20 +93,71 @@ function UserPage() {
     <div className="">
       <Navbar />
       <div className="wrapper">
-        <h1>UserPage</h1>
-        <h2>{userData.userEmail}</h2>
-        <Button onClick={closeSession}>Close session</Button>
-        {
+        <div className={styles.profile__card}>
+          <header></header>
+          <div className={styles.avatar__container}>
+            <picture>
+              <img
+                src="https://i.pravatar.cc/150?u=a04258114e29026702d"
+                alt="picture"
+              />
+            </picture>
+            <div className={styles.avatar__text}>
+              <h1>Settings</h1>
+              <h2>{userData?.userEmail}</h2>
+            </div>
+            {
           token && (
             <Link to={"/dashboard"}>
-              <Button>Dashboard</Button>
+              <Button color="primary">Dashboard</Button>
             </Link>
           )
         }
-        {/* <Link to={"/dashboard"}>
-          <Button>Dashboard</Button>
-        </Link> */}
+            <Button onClick={closeSession} color="danger">
+              Close session
+            </Button>
+          </div>
+          <div className={styles.profile__configuration}>
+            <form onSubmit={handleUpdate} className={styles.form}>
+              <div className={styles.form__group}>
+                <label htmlFor="">Email</label>
+                <Input
+                  size="sm"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+              <div className={styles.form__group}>
+                <label htmlFor="">Password</label>
+                <Input
+                  size="sm"
+                  type="password"
+                  label="Password"
+                  placeholder="Change your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+              <div className={styles.form__group}>
+                <label htmlFor="">Username</label>
+                <Input
+                  size="sm"
+                  type="text"
+                  label="Username"
+                  placeholder="Change your username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+              </div>
+              <button className={styles.btnUpdate} onClick={handleUpdate}>
+                Update
+              </button>
+            </form>
+          </div>
+        </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }

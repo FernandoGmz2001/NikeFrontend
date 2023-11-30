@@ -1,0 +1,81 @@
+.btnChangeImage {
+  color: white;
+  background: black;
+}
+
+.avatar__container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  height: 100px;
+  margin-bottom: 30px;
+}
+
+
+.avatar__container a{
+    color: red;
+}
+.avatar__container img {
+  border-radius: 100px;
+  width: 150px;
+  height: 150px;
+  position: relative;
+  top: -10px;
+  border: 5px solid white;
+}
+
+.profile__card {
+  border-radius: 10px;
+  position: relative;
+}
+
+.profile__card header {
+  background: rgb(0, 20, 56);
+  background: linear-gradient(
+    90deg,
+    rgba(0, 20, 56, 1) 0%,
+    rgba(9, 9, 121, 1) 37%,
+    rgba(0, 212, 255, 1) 100%
+  );
+  height: 150px;
+  border-radius: 10px 10px 0px 0px;
+}
+.avatar__text {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.avatar__text h1 {
+  font-weight: bold;
+  font-size: 3rem;
+}
+
+.avatar__text h2 {
+  color: gray;
+  font-size: 1.2rem;
+}
+
+.profile__configuration{
+    padding: 20px;
+    width: 600px;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form__group{
+    display: flex;
+    gap: 10px;
+    align-content: center;
+    justify-content: center;
+}
+
+.btnUpdate{
+    background-color: black;
+    color: white;
+}

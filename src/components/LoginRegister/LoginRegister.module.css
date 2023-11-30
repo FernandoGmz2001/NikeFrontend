@@ -11,6 +11,7 @@
     justify-content: center;
     align-items: center;
     gap: 30px;
+    padding-top: 40px;
 }
 
 .login__header{
@@ -39,7 +40,7 @@
 }
 
 .btnLogin{
-    background-color: green;
+    background-color: black;
     color: white;
 }
 
