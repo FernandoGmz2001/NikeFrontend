@@ -1,8 +1,4 @@
 .sidebar{
-    background: white;
-    background: rgba( 255, 255, 255, 0.55 );
-    backdrop-filter: blur( 8px );
-    -webkit-backdrop-filter: blur( 8px );
     border-radius: 10px;
     padding: 20px;
     height: 100%;
@@ -10,6 +6,7 @@
 
 .menu__item{
     cursor: pointer;
+    color: white;
 }
 
 .sidebar__content{

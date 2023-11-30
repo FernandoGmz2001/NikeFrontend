@@ -27,7 +27,7 @@ function Navbar({ userColor, bagColor }) {
       </ul>
       <div className={styles.navbar__userActions}>
         <div className="user__avatar">
-          {location.pathname != "/login" && userData.userUsername == "" ? (
+          {location.pathname != "/login" && userData?.userUsername == "" ? (
             <Link to="/login">
               <Button>Login</Button>
             </Link>

@@ -13,7 +13,7 @@ function Dashboard() {
   };
   return (
     <div className={styles.dashboard}>
-       <div className={styles.backgroundImage}></div>
+       {/* <div className={styles.backgroundImage}></div> */}
       <div className={styles.sidebar}>
         <Sidebar onItemClick={handleItemClick}/>
       </div>

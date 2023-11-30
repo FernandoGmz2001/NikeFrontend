@@ -9,7 +9,7 @@ function Sidebar({ onItemClick }) {
       <header className={styles.sidebar__header}>
         <Link to='/'>
         <img
-          src="https://1000marcas.net/wp-content/uploads/2019/11/Logo-Nike-1.png"
+          src="https://pngimg.com/uploads/nike/nike_PNG7.png"
           alt="nike-logo"
           width={100}
           height={50}
