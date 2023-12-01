@@ -16,6 +16,7 @@ import {
   useDisclosure,
   Pagination,
 } from "@nextui-org/react";
+import { toast, ToastContainer } from "react-toastify";
 
 function Orders() {
   const [isLoading, setIsLoading] = useState(true);
@@ -28,7 +29,7 @@ function Orders() {
     "Cantidad",
     "Total",
     "User Id",
-    "Cancelar orden"
+    "Cancel"
   ];
 
   async function getOrders() {
@@ -52,6 +53,7 @@ function Orders() {
       getOrders()
       console.log(data);
       onOpenChange()
+      toast('Orden eliminada exitosamente', {type: 'success'})
     } catch (err) {
       throw new Error(err);
     }
@@ -83,7 +85,7 @@ function Orders() {
                 <td>{order.quantity}</td>
                 <td>{order.total}</td>
                 <td>{order.userId}</td>
-                <td><Button color="danger" onClick={() => handleSelectedOrder(order)}>Cancelar orden</Button></td>
+                <td><Button color="danger" onClick={() => handleSelectedOrder(order)}>Cancel</Button></td>
               </tr>
             ))}
           </tbody>
@@ -123,16 +125,17 @@ function Orders() {
               <ModalBody><h1>Desea cancelar esta orden?</h1></ModalBody>
               <ModalFooter>
                 <Button color="danger" onPress={onClose}>
-                  Cerrar
+                  Close
                 </Button>
                 <Button color="primary" onPress={handleConfirmDelete}>
-                  Confirmar
+                  Confirm
                 </Button>
               </ModalFooter>
             </>
           )}
         </ModalContent>
       </Modal>
+      <ToastContainer/>
     </div>
   );
 }

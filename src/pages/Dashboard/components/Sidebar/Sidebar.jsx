@@ -1,20 +1,20 @@
-import { Link } from 'react-router-dom'
+import { Link,useNavigate } from 'react-router-dom'
+import { FaArrowLeft } from "react-icons/fa";
 import styles from "./Sidebar.module.css";
 function Sidebar({ onItemClick }) {
+  const navigate = useNavigate();
   const handleClick = (event) => {
     onItemClick(event.target.innerText);
   };
+
+  const handleGoBack = () => {
+    navigate(-1); // Utiliza la función goBack() para regresar a la página anterior
+  };
+
   return (
     <div className={styles.sidebar}>
       <header className={styles.sidebar__header}>
-        <Link to='/'>
-        <img
-          src="https://pngimg.com/uploads/nike/nike_PNG7.png"
-          alt="nike-logo"
-          width={100}
-          height={50}
-        />
-        </Link>
+        <FaArrowLeft color='white' size={30} className='cursor-pointer' onClick={handleGoBack}/>
       </header>
       <section className={styles.sidebar__content}>
         <ul className={styles.sidebar__menu}>

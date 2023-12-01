@@ -85,7 +85,7 @@ function ProductPage() {
               {counter}
               <button onClick={increaseCounter} className="btnCounter">+</button>
             </div>
-            <button className="btnBuyNow" onClick={onOpen}>Comprar ahora</button>
+            <button className="btnBuyNow" onClick={onOpen}>Buy now</button>
           </div>
         </div>
       </main>
@@ -94,10 +94,10 @@ function ProductPage() {
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">
-                Confirmar compra
+              Confirm purchase
               </ModalHeader>
               <ModalBody>
-                <h1>Desea comprar el siguiente producto?</h1>
+                <h1>Do you want to buy the following product?</h1>
                 <div className="dialog__product">
                   <picture>
                     <img src={product.productImage} alt=""  width={100} height={100}/>
@@ -111,10 +111,10 @@ function ProductPage() {
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" onPress={onClose}>
-                  Cerrar
+                  Close
                 </Button>
                 <Button color="primary" onPress={handleConfirm}>
-                  Confirmar
+                  Confirm
                 </Button>
               </ModalFooter>
             </>

@@ -36,10 +36,13 @@ function UserPage() {
       `http://localhost:5000/users/${userData.userId}`,
       {
         method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*", // Agrega esta línea para permitir cualquier origen
+        },
       }
     );
     const data = await response.json();
-
     setUserInformation(data[0]);
     setEmail(data[0].email);
     setPassword(data[0].password);
@@ -146,7 +149,7 @@ function UserPage() {
                   selectedImage ? selectedImage : userInformation.avatarImage
                 }
                 alt="picture"
-                className={styles.avatar__image}
+                className={`${styles.avatar__image} ${selectedImage && selectedImage.endsWith('.png') ? styles.grayBackground : ''}`}
               />
               <div className={styles.change__picture}>
                 <label htmlFor="fileInput" className={styles.customFileUpload}>

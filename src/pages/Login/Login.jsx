@@ -54,7 +54,7 @@ function Login() {
   }
 
   return (
-    <LoginRegister bottom_url={'No tienes cuenta?'} toLink={'Regístrate aquí'} link={'/register'}>
+    <LoginRegister bottom_url={'Dont have an account?'} toLink={'Sign up here'} link={'/register'}>
       <form onSubmit={handleSubmit} className={styles.form}>
         <Input
           size="sm"
@@ -72,7 +72,7 @@ function Login() {
           onChange={(e) => setPassword(e.target.value)}
         />
         <button className={styles.btnLogin} onClick={handleSubmit}>
-          Iniciar sesión
+          Login
         </button>
       </form>
       <ToastContainer />

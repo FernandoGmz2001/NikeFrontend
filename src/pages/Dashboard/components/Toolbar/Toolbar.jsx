@@ -17,6 +17,8 @@ import {
 
 function Toolbar() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [selectedFile, setSelectedFile] = useState(null);
+
 
   const [formData, setFormData] = useState({
     productDescription: "",
@@ -45,6 +47,7 @@ function Toolbar() {
       });
       console.log("Se ha enviado exitosamente");
       onOpenChange();
+      toast("Producto creado exitosamente", { type: "success" })
     } catch (err) {
       throw new Error(err);
     }
@@ -62,12 +65,61 @@ function Toolbar() {
     }
   }
 
+  const handleFileChange = (event) => {
+    try {
+      setSelectedFile(event.target.files[0]);
+      toast("Archivo seleccionado correctamente", { type: "success" });
+    } catch (error) {
+      throw new Error(error);
+    }
+
+  };
+
+
+  const handleFileUpload = async () => {
+    try {
+      const formData = new FormData();
+      formData.append('file', selectedFile);
+
+      const response = await fetch('http://127.0.0.1:5000/products/import', {
+        method: 'POST',
+        body: formData,
+      });
+
+      console.log(await response)
+      if (response.ok) {
+        toast('Archivo importado exitosamente', { type: 'success' });
+        
+      } else {
+        const errorData = await response.json();
+        toast(errorData.error, { type: 'error' });
+      }
+    } catch (error) {
+      console.error(error);
+      toast('Error al importar el archivo', { type: 'error' });
+    }
+  };
+
   return (
     <div className={styles.toolbar}>
       <div className={styles.toolbar__search}>
         <div className="flex gap-2">
           <Button color="primary" onClick={onOpen}>Agregar producto</Button>
           <Button color="success" className="text-white" onClick={generateFile}>Generar excel</Button>
+          <div className={styles.customFile}>
+            <input
+              type="file"
+              className={styles.customFileInput}
+              id="fileInput"
+              onChange={handleFileChange}
+            />
+            <label className={styles.customFileLabel} htmlFor="fileInput">
+              Subir archivo Excel
+            </label>
+          </div>
+          <Button color="success" className="text-white" onClick={handleFileUpload}>
+            Generar producto
+          </Button>
         </div>
       </div>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
@@ -111,7 +163,7 @@ function Toolbar() {
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" onPress={onClose}>
-                  Cerrar
+                  Close
                 </Button>
                 <Button color="primary" onPress={handleConfirm}>
                   Crear

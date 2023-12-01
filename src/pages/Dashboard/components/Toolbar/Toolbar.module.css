@@ -13,3 +13,47 @@
     flex-direction: column;
     gap: 10px;
 }
+
+.customFile {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.customFileInput {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.customFileLabel {
+    display: inline-block;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 105px;
+    border-radius: 10px;
+}
+
+.customFileLabel:hover {
+    background-color: #0056b3;
+    cursor: pointer;
+}
+
+.customFileInput:focus ~ .customFileLabel {
+    outline: none;
+}
+
+.customFileInput:disabled ~ .customFileLabel {
+    opacity: 0.6;
+    cursor: not-allowed;
+}

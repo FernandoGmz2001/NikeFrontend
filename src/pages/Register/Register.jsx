@@ -44,7 +44,7 @@ function Register() {
   }
 
   return (
-    <LoginRegister bottom_url={'Ya tienes cuenta?'} toLink={'Inicia sesion'} link={'/login'}>
+    <LoginRegister bottom_url={'Already have an account?'} toLink={'Login here'} link={'/login'}>
       <form onSubmit={handleSubmit} className={styles.form}>
       <Input
           size="sm"
@@ -69,7 +69,7 @@ function Register() {
           onChange={(e) => setPassword(e.target.value)}
         />
         <button className={styles.btnLogin} onClick={handleSubmit}>
-          Regístrate
+          Sign up
         </button>
       </form>
       <ToastContainer />

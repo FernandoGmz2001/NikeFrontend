@@ -10,9 +10,18 @@
 }
 
 .products__body{
-    height: 500px;
+    height: 350px;
     overflow-y: scroll;
 }
+
+.products__header{
+    display: flex;
+    gap: 20px;
+    width: 600px;
+    align-items: center;
+}
+
+
 
 .products__header h1{
     font-size: 32px;

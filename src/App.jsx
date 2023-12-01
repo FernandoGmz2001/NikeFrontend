@@ -10,6 +10,7 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import Register from "./pages/Register/Register";
 import UserPage from "./pages/UserPage/UserPage";
 import ProductPage from "./pages/ProductPage/ProductPage";
+import ErrorPage from "./pages/ErrorPage/ErrorPage";
 
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
@@ -37,11 +38,12 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/products" element={<Products />} />
         <Route path="/product/:id" element={<ProductPage />} />
+        <Route path="/error" element={<ErrorPage />} />
         {authenticated ? (
           <>
             <Route
               path="/dashboard"
-              element={token ? <Dashboard /> : <Navigate to="/" />}
+              element={token ? <Dashboard /> : <Navigate to="/error" />}
             />
             <Route path="/profile" element={<UserPage />} />
           </>

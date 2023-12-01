@@ -23,6 +23,7 @@ import { FiDelete, FiEdit } from "react-icons/fi";
 
 function Products() {
   const [isLoading, setIsLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
   const [products, setProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState({});
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -42,6 +43,15 @@ function Products() {
   useEffect(() => {
     getProducts();
   }, []);
+
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const filteredProducts = products.filter((product) =>
+    product.productName.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setSelectedProduct((prevProduct) => ({
@@ -99,11 +109,20 @@ function Products() {
     <div className={styles.products}>
       <header className={styles.products__header}>
         <h1>Productos</h1>
+        <Input
+          type="text"
+          value={searchTerm}
+          size="sm"
+          onChange={handleSearchChange}
+          placeholder="Search"
+        />
       </header>
+
       <section className={styles.products__body}>
         <table className={styles.table}>
           <thead>
             <tr>
+              <th>Id</th>
               <th>Nombre</th>
               <th>Precio</th>
               <th>Genero</th>
@@ -113,8 +132,9 @@ function Products() {
             </tr>
           </thead>
           <tbody>
-            {products.map((product) => (
+            {filteredProducts.map((product) => (
               <tr key={product.productId}>
+                <td>{product.productId}</td>
                 <td>{product.productName}</td>
                 <td>{product.productPrice}</td>
                 <td>{product.productGender}</td>
@@ -126,10 +146,21 @@ function Products() {
                     color="green"
                     size={18}
                   /> */}
-                  <Button color="success" className="text-white" onClick={()=>handleSelectedProduct(product)}>Editar</Button>
+                  <Button
+                    color="success"
+                    className="text-white"
+                    onClick={() => handleSelectedProduct(product)}
+                  >
+                    Editar
+                  </Button>
                 </td>
                 <td className="">
-                  <Button color="danger" onClick={()=>handleDeleteProduct(product)}>Eliminar</Button>
+                  <Button
+                    color="danger"
+                    onClick={() => handleDeleteProduct(product)}
+                  >
+                    Eliminar
+                  </Button>
                 </td>
               </tr>
             ))}
@@ -177,10 +208,10 @@ function Products() {
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" onPress={onClose}>
-                  Cerrar
+                  Close
                 </Button>
                 <Button color="primary" onPress={handleConfirm}>
-                  Confirmar
+                  Confirm
                 </Button>
               </ModalFooter>
             </>
@@ -193,7 +224,7 @@ function Products() {
           <ModalBody>Esta seguro de que desea eliminar el producto?</ModalBody>
           <ModalFooter>
             <Button color="danger" mr={3} onClick={onCloseModal2}>
-              Cerrar
+              Close
             </Button>
             <Button color="primary" onPress={handleConfirmDelete}>
               Eliminar
