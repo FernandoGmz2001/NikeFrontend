@@ -2,7 +2,7 @@ import styles from "./Products.module.css";
 import { useEffect, useState, useMemo } from "react";
 import { Input } from "@nextui-org/react";
 import { MdDeleteOutline } from "react-icons/md";
-import { ToastContainer,toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import {
   Table,
   TableHeader,
@@ -27,7 +27,6 @@ function Products() {
   const [selectedProduct, setSelectedProduct] = useState({});
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
-
   const {
     isOpen: isOpenModal2,
     onOpen: onOpenModal2,
@@ -39,7 +38,6 @@ function Products() {
     const data = await response.json();
     setIsLoading(false);
     setProducts(data[0].productos);
-    console.log(data[0].productos);
   }
   useEffect(() => {
     getProducts();
@@ -52,22 +50,13 @@ function Products() {
     }));
   };
 
-  const columns = [
-    "Nombre",
-    "Precio",
-    // "Cantidad",
-    "Genero",
-    "Descripcion",
-    "Acciones",
-  ];
-
   function handleSelectedProduct(product) {
     onOpen();
     setSelectedProduct(product);
   }
 
   function handleDeleteProduct(product) {
-    onOpenModal2()
+    onOpenModal2();
     setSelectedProduct(product);
   }
 
@@ -83,16 +72,14 @@ function Products() {
           body: JSON.stringify(selectedProduct),
         }
       );
-      console.log("Se ha enviado exitosamente");
       toast("Producto editado correctamente", { type: "success" });
-      getProducts()
+      getProducts();
       onOpenChange();
     } catch (err) {
       throw new Error(err);
     }
   }
 
-  
   async function handleConfirmDelete() {
     try {
       await fetch(
@@ -101,9 +88,8 @@ function Products() {
           method: "DELETE",
         }
       );
-      console.log("Se ha enviado exitosamente");
       toast("Producto eliminado correctamente", { type: "success" });
-      getProducts()
+      getProducts();
       onCloseModal2();
     } catch (err) {
       throw new Error(err);
@@ -115,43 +101,40 @@ function Products() {
         <h1>Productos</h1>
       </header>
       <section className={styles.products__body}>
-        <Table
-          aria-label="Example table with client side pagination"
-          isHeaderSticky
-          classNames={{
-            wrapper: "h-[500px]",
-          }}
-        >
-          <TableHeader>
-            {columns.map((column, index) => (
-              <TableColumn key={index}>{column}</TableColumn>
-            ))}
-          </TableHeader>
-          <TableBody items={products}>
-            {(product) => (
-              <TableRow key={product.productId}>
-                <TableCell>{product.productName}</TableCell>
-                <TableCell>{product.productPrice}</TableCell>
-                <TableCell>{product.productGender}</TableCell>
-                <TableCell>{product.productDescription}</TableCell>
-                <TableCell className="flex gap-3 items-center">
-                  <FiEdit
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Precio</th>
+              <th>Genero</th>
+              <th>Descripcion</th>
+              <th>Editar</th>
+              <th>Eliminar</th>
+            </tr>
+          </thead>
+          <tbody>
+            {products.map((product) => (
+              <tr key={product.productId}>
+                <td>{product.productName}</td>
+                <td>{product.productPrice}</td>
+                <td>{product.productGender}</td>
+                <td>{product.productDescription}</td>
+                <td className="">
+                  {/* <FiEdit
                     onClick={() => handleSelectedProduct(product)}
                     className="cursor-pointer"
                     color="green"
                     size={18}
-                  />
-                  <MdDeleteOutline
-                    onClick={() => handleDeleteProduct(product)}
-                    className="cursor-pointer"
-                    color="red"
-                    size={20}
-                  />
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
+                  /> */}
+                  <Button color="success" className="text-white" onClick={()=>handleSelectedProduct(product)}>Editar</Button>
+                </td>
+                <td className="">
+                  <Button color="danger" onClick={()=>handleDeleteProduct(product)}>Eliminar</Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </section>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>
@@ -212,7 +195,9 @@ function Products() {
             <Button color="danger" mr={3} onClick={onCloseModal2}>
               Cerrar
             </Button>
-            <Button color="primary"  onPress={handleConfirmDelete}>Eliminar</Button>
+            <Button color="primary" onPress={handleConfirmDelete}>
+              Eliminar
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

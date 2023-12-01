@@ -13,3 +13,38 @@
     font-size: 32px;
     font-weight: bold;
 }
+
+.content__body{
+    height: 500px;
+    overflow-y: scroll;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    align-items: stretch;
+    height: 500px;
+    overflow-y: scroll;
+    border-radius: 10px;
+}
+
+.table th {
+    padding: 8px;
+    text-align: left;
+    background-color: black;
+    color: white;
+}
+
+thead{
+    position: sticky;
+    top: 0;
+    z-index: 2;
+
+}
+
+.table td {
+    /* border: 1px solid #ddd; */
+    vertical-align: middle;
+    border-bottom: 1px solid #ddd;
+    padding: 8px;
+}

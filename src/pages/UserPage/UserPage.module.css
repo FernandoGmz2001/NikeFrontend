@@ -48,6 +48,10 @@
   flex-direction: column;
 }
 
+.avatar__picture{
+  width: 150px;
+}
+
 .avatar__text h1 {
   font-weight: bold;
   font-size: 3rem;
@@ -56,6 +60,10 @@
 .avatar__text h2 {
   color: gray;
   font-size: 1.2rem;
+}
+
+.avatar__image{
+  object-fit: cover;
 }
 
 .profile__configuration{
@@ -85,4 +93,18 @@
 .btnUpdate,.btnChangePicture{
     background-color: black;
     color: white;
+}
+
+
+.customFileUpload {
+  display: inline-block;
+  padding: 10px;
+  color: white;
+  background-color: black;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.file__input {
+  display: none;
 }

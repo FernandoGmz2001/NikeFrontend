@@ -56,7 +56,7 @@ function Toolbar() {
         method: "GET",
       });
       const data = await response.json();
-      // toast("Excel generado correctamente", { type: "success" });
+      toast("Excel generado correctamente", { type: "success" });
     } catch (error) {
       throw new Error(error);
     }
@@ -65,22 +65,9 @@ function Toolbar() {
   return (
     <div className={styles.toolbar}>
       <div className={styles.toolbar__search}>
-        <Input
-          placeholder="Search"
-          labelPlacement="outside"
-          startContent={<CiSearch />}
-        />
         <div className="flex gap-2">
-          <MdAddToPhotos
-            onClick={onOpen}
-            className="cursor-pointer w-[40px]"
-            color="white"
-          />
-          <FaRegFileExcel
-            onClick={generateFile}
-            className="cursor-pointer w-[40px]"
-            color="white"
-          />
+          <Button color="primary" onClick={onOpen}>Agregar producto</Button>
+          <Button color="success" className="text-white" onClick={generateFile}>Generar excel</Button>
         </div>
       </div>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>

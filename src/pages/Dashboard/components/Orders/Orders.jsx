@@ -20,18 +20,41 @@ import {
 function Orders() {
   const [isLoading, setIsLoading] = useState(true);
   const [orders, setOrders] = useState([]);
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [selectedOrder, setSelectedOrder] = useState({});
   const columns = [
     "Id de orden",
     "Id del producto",
     "Cantidad",
     "Total",
     "User Id",
+    "Cancelar orden"
   ];
 
   async function getOrders() {
     const response = await fetch("http://127.0.0.1:5000/orders");
     const data = await response.json();
     setOrders(data);
+  }
+
+  function handleSelectedOrder(order) {
+    onOpen();
+    console.log(order);
+    setSelectedOrder(order);
+  }
+
+  async function handleConfirmDelete() {
+    try {
+      const response = await fetch(`http://localhost:5000/orders/${selectedOrder.orderId}`,{
+        method: "DELETE",
+      })
+      const data = await response.json();
+      getOrders()
+      console.log(data);
+      onOpenChange()
+    } catch (err) {
+      throw new Error(err);
+    }
   }
 
   useEffect(() => {
@@ -44,7 +67,28 @@ function Orders() {
         <h1>Ordenes</h1>
       </header>
       <section className={styles.content__body}>
-        <Table
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              {columns.map((column, index) => (
+                <th key={index}>{column}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {orders.map((order) => (
+              <tr key={order.orderId}>
+                <td>{order.orderId}</td>
+                <td>{order.productId}</td>
+                <td>{order.quantity}</td>
+                <td>{order.total}</td>
+                <td>{order.userId}</td>
+                <td><Button color="danger" onClick={() => handleSelectedOrder(order)}>Cancelar orden</Button></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        {/* <Table
           aria-label="Tabla de ordenes"
           isHeaderSticky
           classNames={{
@@ -67,8 +111,28 @@ function Orders() {
               </TableRow>
             )}
           </TableBody>
-        </Table>
+        </Table> */}
       </section>
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">
+                Eliminar orden
+              </ModalHeader>
+              <ModalBody><h1>Desea cancelar esta orden?</h1></ModalBody>
+              <ModalFooter>
+                <Button color="danger" onPress={onClose}>
+                  Cerrar
+                </Button>
+                <Button color="primary" onPress={handleConfirmDelete}>
+                  Confirmar
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
     </div>
   );
 }

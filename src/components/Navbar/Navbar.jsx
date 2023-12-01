@@ -14,8 +14,7 @@ function Navbar({ userColor, bagColor }) {
   async function getProfileImage(){
     const response = await fetch (`http://localhost:5000/users/${userData.userId}`)
     const data = await response.json()
-    setProfileImage(data.avatarImage)
-    console.log(data);
+    setProfileImage(data[0].avatarImage)
   }
 
   useEffect(()=>{

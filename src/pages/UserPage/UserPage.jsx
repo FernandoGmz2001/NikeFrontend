@@ -3,10 +3,15 @@ import { useEffect, useState } from "react";
 import { Button } from "@nextui-org/react";
 import { Input } from "@nextui-org/react";
 import Navbar from "../../components/Navbar/Navbar";
-import { ToastContainer,toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import styles from "./UserPage.module.css";
-import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { app } from '../../firebase.js'
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
+import { app } from "../../firebase.js";
 
 function UserPage() {
   const [userInformation, setUserInformation] = useState({});
@@ -35,28 +40,15 @@ function UserPage() {
     );
     const data = await response.json();
 
-    console.log(data[0].user.username);
-
-    setUserInformation(data[0].user);
-    setEmail(data[0].user.email);
-    setPassword(data[0].user.password);
-    setUsername(data[0].user.username);
+    setUserInformation(data[0]);
+    setEmail(data[0].email);
+    setPassword(data[0].password);
+    setUsername(data[0].username);
   }
 
   useEffect(() => {
     getActualUser();
   }, []);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await fetch("http://127.0.0.1:5000/", {
-        method: "POST",
-      });
-    } catch (err) {
-      console.error("Error de inicio de sesión:", err);
-    }
-  };
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -78,49 +70,59 @@ function UserPage() {
       const data = await response.json();
       toast("Datos actualizados correctamente", { type: "success" });
       console.log(data);
-      localStorage.setItem("userData", JSON.stringify({
-        userEmail: email,
-        userUsername: username,
-        userId: userData.userId,
-      }));
+      localStorage.setItem(
+        "userData",
+        JSON.stringify({
+          userEmail: email,
+          userUsername: username,
+          userId: userData.userId,
+        })
+      );
       getActualUser();
     } catch (err) {
       toast("Error al actualizar los datos", { type: "error" });
-  const updateUserImage = async (image) => {
-    try{
-      const response = await fetch(`http://localhost:5000/users/${userData.userId}`,{
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({avatarImage: image})
-      })
-      const data = await response.json()
-      console.log(data);
-    }catch(err){
-      throw new Error(err)
     }
-  }
+  };
+  const updateUserImage = async (image) => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/users/${userData.userId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ avatarImage: image }),
+        }
+      );
+      const data = await response.json();
+      console.log(data);
+    } catch (err) {
+      throw new Error(err);
+    }
+  };
 
   const handleImageChange = (e) => {
     if (e.target.files && e.target.files[0]) {
       let img = e.target.files[0];
       const storage = getStorage();
-      const storageRef = ref(storage, 'images/' + img.name);
+      const storageRef = ref(storage, "images/" + img.name);
       const uploadTask = uploadBytesResumable(storageRef, img);
-  
-      uploadTask.on('state_changed', 
+
+      uploadTask.on(
+        "state_changed",
         (snapshot) => {
           // Handle the upload progress
-        }, 
+        },
         (error) => {
           // Handle unsuccessful uploads
-        }, 
+        },
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            console.log('File available at', downloadURL);
+            console.log("File available at", downloadURL);
             setSelectedImage(downloadURL);
-            updateUserImage(selectedImage)
+            updateUserImage(downloadURL);
+            toast("Imagen actualizada correctamente", { type: "success" });
           });
         }
       );
@@ -140,30 +142,74 @@ function UserPage() {
           <div className={styles.avatar__container}>
             <picture className={styles.avatar__picture}>
               <img
-                src="https://i.pravatar.cc/150?u=a04258114e29026702d"
+                src={
+                  selectedImage ? selectedImage : userInformation.avatarImage
+                }
                 alt="picture"
                 className={styles.avatar__image}
               />
               <div className={styles.change__picture}>
-                <button className={styles.btnChangePicture}>Cambiar foto</button>
+                <label htmlFor="fileInput" className={styles.customFileUpload}>
+                  Change picture
+                </label>
+                <input id="fileInput" className={styles.file__input} type="file" onChange={handleImageChange} />
               </div>
-
             </picture>
             <div className={styles.avatar__text}>
               <h1>Settings</h1>
               <h2>{userData?.userEmail}</h2>
             </div>
-            {
-          token && (
-            <Link to={"/dashboard"}>
-              <Button color="primary">Dashboard</Button>
-            </Link>
-          )
-        }
+            {token && (
+              <Link to={"/dashboard"}>
+                <Button color="primary">Dashboard</Button>
+              </Link>
+            )}
+            <Button onClick={closeSession} color="danger">
+              Close session
+            </Button>
+          </div>
+          <div className={styles.profile__configuration}>
+            <form onSubmit={handleUpdate} className={styles.form}>
+              <div className={styles.form__group}>
+                <Input
+                  size="sm"
+                  type="email"
+                  value={email}
+                  label="Email"
+                  labelPlacement="outside"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+              <div className={styles.form__group}>
+                <Input
+                  size="sm"
+                  type="password"
+                  label="Password"
+                  labelPlacement="outside"
+                  placeholder="Change your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+              <div className={styles.form__group}>
+                <Input
+                  size="sm"
+                  type="text"
+                  label="Username"
+                  labelPlacement="outside"
+                  placeholder="Change your username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+              </div>
+              <Button color="primary" onClick={handleUpdate}>
+                Update
+              </Button>
+            </form>
+          </div>
+        </div>
       </div>
       <ToastContainer />
-      </div>
-    </div>
     </div>
   );
 }
