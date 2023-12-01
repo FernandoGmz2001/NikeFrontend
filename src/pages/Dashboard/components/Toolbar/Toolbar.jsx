@@ -2,10 +2,10 @@ import { CiSearch } from "react-icons/ci";
 import { MdAddToPhotos } from "react-icons/md";
 import { Input } from "@nextui-org/react";
 import { useState } from "react";
-import { ToastContainer,toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import { FaRegFileExcel } from "react-icons/fa";
 import styles from "./Toolbar.module.css";
-import { 
+import {
   Modal,
   ModalContent,
   ModalHeader,
@@ -36,16 +36,13 @@ function Toolbar() {
 
   async function handleConfirm() {
     try {
-      await fetch(
-        `http://127.0.0.1:5000/products`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+      await fetch(`http://127.0.0.1:5000/products`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
       console.log("Se ha enviado exitosamente");
       onOpenChange();
     } catch (err) {
@@ -53,15 +50,15 @@ function Toolbar() {
     }
   }
 
-  async function generateFile(){
+  async function generateFile() {
     try {
-      const response = await fetch('http://127.0.0.1:5000/products/export',{
+      const response = await fetch("http://127.0.0.1:5000/products/export", {
         method: "GET",
-      })
-      const data = await response.json()
+      });
+      const data = await response.json();
       // toast("Excel generado correctamente", { type: "success" });
     } catch (error) {
-      throw new Error(error)
+      throw new Error(error);
     }
   }
 
@@ -74,8 +71,16 @@ function Toolbar() {
           startContent={<CiSearch />}
         />
         <div className="flex gap-2">
-          <MdAddToPhotos onClick={onOpen} className="cursor-pointer w-[40px]" />
-          <FaRegFileExcel onClick={generateFile} className="cursor-pointer w-[40px]"/>
+          <MdAddToPhotos
+            onClick={onOpen}
+            className="cursor-pointer w-[40px]"
+            color="white"
+          />
+          <FaRegFileExcel
+            onClick={generateFile}
+            className="cursor-pointer w-[40px]"
+            color="white"
+          />
         </div>
       </div>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
@@ -87,20 +92,6 @@ function Toolbar() {
               </ModalHeader>
               <ModalBody>
                 <form action="" className={styles.product__form}>
-                  <Input
-                    label="Descripción del producto"
-                    name="productDescription"
-                    placeholder="Ingrese la descripción del producto"
-                    value={formData.productDescription}
-                    onChange={handleInputChange}
-                  />
-                  <Input
-                    label="Imagen del producto"
-                    name="productImage"
-                    placeholder="Ingrese la URL de la imagen del producto"
-                    value={formData.productImage}
-                    onChange={handleInputChange}
-                  />
                   <Input
                     label="Nombre del producto"
                     name="productName"
@@ -115,10 +106,24 @@ function Toolbar() {
                     value={formData.productPrice}
                     onChange={handleInputChange}
                   />
+                  <Input
+                    label="Descripción del producto"
+                    name="productDescription"
+                    placeholder="Ingrese la descripción del producto"
+                    value={formData.productDescription}
+                    onChange={handleInputChange}
+                  />
+                  <Input
+                    label="Imagen del producto"
+                    name="productImage"
+                    placeholder="Ingrese la URL de la imagen del producto"
+                    value={formData.productImage}
+                    onChange={handleInputChange}
+                  />
                 </form>
               </ModalBody>
               <ModalFooter>
-                <Button color="danger"  onPress={onClose}>
+                <Button color="danger" onPress={onClose}>
                   Cerrar
                 </Button>
                 <Button color="primary" onPress={handleConfirm}>

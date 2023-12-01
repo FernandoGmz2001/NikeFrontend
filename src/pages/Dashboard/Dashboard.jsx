@@ -1,3 +1,4 @@
+import Orders from "./components/Orders/Orders";
 import Products from "./components/Products/Products";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Toolbar from "./components/Toolbar/Toolbar";
@@ -23,7 +24,7 @@ function Dashboard() {
         </div>
         <div className={styles.products}>
           {
-            activeItem === 'Productos' ? <Products/> : <h1>Ordenes</h1>
+            activeItem === 'Productos' ? <Products/> : <Orders/>
           }
         </div>
       </main>

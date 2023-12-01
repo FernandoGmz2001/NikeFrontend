@@ -5,6 +5,8 @@ import { Input } from "@nextui-org/react";
 import Navbar from "../../components/Navbar/Navbar";
 import { ToastContainer,toast } from "react-toastify";
 import styles from "./UserPage.module.css";
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { app } from '../../firebase.js'
 
 function UserPage() {
   const [userInformation, setUserInformation] = useState({});
@@ -14,6 +16,8 @@ function UserPage() {
   const [redirect, setRedirect] = useState(false);
   const userData = JSON.parse(localStorage.getItem("userData"));
   const token = localStorage.getItem("token");
+  const [selectedImage, setSelectedImage] = useState(null);
+  const storage = getStorage();
 
   function closeSession() {
     localStorage.removeItem("token");
@@ -82,6 +86,44 @@ function UserPage() {
       getActualUser();
     } catch (err) {
       toast("Error al actualizar los datos", { type: "error" });
+  const updateUserImage = async (image) => {
+    try{
+      const response = await fetch(`http://localhost:5000/users/${userData.userId}`,{
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({avatarImage: image})
+      })
+      const data = await response.json()
+      console.log(data);
+    }catch(err){
+      throw new Error(err)
+    }
+  }
+
+  const handleImageChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      let img = e.target.files[0];
+      const storage = getStorage();
+      const storageRef = ref(storage, 'images/' + img.name);
+      const uploadTask = uploadBytesResumable(storageRef, img);
+  
+      uploadTask.on('state_changed', 
+        (snapshot) => {
+          // Handle the upload progress
+        }, 
+        (error) => {
+          // Handle unsuccessful uploads
+        }, 
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            console.log('File available at', downloadURL);
+            setSelectedImage(downloadURL);
+            updateUserImage(selectedImage)
+          });
+        }
+      );
     }
   };
 
@@ -118,51 +160,10 @@ function UserPage() {
             </Link>
           )
         }
-            <Button onClick={closeSession} color="danger">
-              Close session
-            </Button>
-          </div>
-          <div className={styles.profile__configuration}>
-            <form onSubmit={handleUpdate} className={styles.form}>
-              <div className={styles.form__group}>
-                <label htmlFor="">Email</label>
-                <Input
-                  size="sm"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-              <div className={styles.form__group}>
-                <label htmlFor="">Password</label>
-                <Input
-                  size="sm"
-                  type="password"
-                  label="Password"
-                  placeholder="Change your password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
-              <div className={styles.form__group}>
-                <label htmlFor="">Username</label>
-                <Input
-                  size="sm"
-                  type="text"
-                  label="Username"
-                  placeholder="Change your username"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                />
-              </div>
-              <Button color="primary" onSubmit={handleUpdate}>
-                Update
-              </Button>
-            </form>
-          </div>
-        </div>
       </div>
       <ToastContainer />
+      </div>
+    </div>
     </div>
   );
 }

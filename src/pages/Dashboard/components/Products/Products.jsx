@@ -58,7 +58,6 @@ function Products() {
     // "Cantidad",
     "Genero",
     "Descripcion",
-    "Imagen",
     "Acciones",
   ];
 
@@ -135,14 +134,18 @@ function Products() {
                 <TableCell>{product.productPrice}</TableCell>
                 <TableCell>{product.productGender}</TableCell>
                 <TableCell>{product.productDescription}</TableCell>
-                <TableCell>{product.productImage}</TableCell>
-                <TableCell className="flex gap-6">
+                <TableCell className="flex gap-3 items-center">
                   <FiEdit
                     onClick={() => handleSelectedProduct(product)}
                     className="cursor-pointer"
+                    color="green"
+                    size={18}
                   />
                   <MdDeleteOutline
                     onClick={() => handleDeleteProduct(product)}
+                    className="cursor-pointer"
+                    color="red"
+                    size={20}
                   />
                 </TableCell>
               </TableRow>

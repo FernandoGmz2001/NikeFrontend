@@ -4,10 +4,23 @@ import propTypes from "prop-types";
 import styles from "./Navbar.module.css";
 import { Link, useLocation } from "react-router-dom";
 import { Button, User } from "@nextui-org/react";
+import { useEffect, useState } from "react";
 
 function Navbar({ userColor, bagColor }) {
   const location = useLocation();
   const userData = JSON.parse(localStorage.getItem("userData"));
+  const [profileImage, setProfileImage] = useState(null)
+
+  async function getProfileImage(){
+    const response = await fetch (`http://localhost:5000/users/${userData.userId}`)
+    const data = await response.json()
+    setProfileImage(data.avatarImage)
+    console.log(data);
+  }
+
+  useEffect(()=>{
+    getProfileImage()
+  },[])
 
   return (
     <nav className={styles.navbar}>
@@ -44,7 +57,7 @@ function Navbar({ userColor, bagColor }) {
                     name={userData.userUsername}
                     description={userData.userEmail}
                     avatarProps={{
-                      src: "https://i.pravatar.cc/150?u=a04258114e29026702d",
+                      src: profileImage,
                     }}
                   />
                 )

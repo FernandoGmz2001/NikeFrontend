@@ -12,6 +12,7 @@
   "dependencies": {
     "@nextui-org/react": "^2.2.9",
     "buffer": "^6.0.3",
+    "firebase": "^10.7.0",
     "framer-motion": "^10.16.4",
     "jsonwebtoken": "^9.0.2",
     "localforage": "^1.10.0",
